@@ -14,18 +14,16 @@ import {
 } from "react-aria-components";
 import { FcGoogle } from "react-icons/fc";
 
-const SignUpPage = () => {
+const LoginPage = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
 
-    const { data, error } = await authClient.signUp.email({
+    const { data, error } = await authClient.signIn.email({
       email: user.email,
       password: user.password,
-      name: user.name,
-      image: user.image,
     });
 
     if (data) {
@@ -36,44 +34,19 @@ const SignUpPage = () => {
     }
   };
 
-  const handleWithGoogle = async () => {
-    await authClient.signIn.social({
-      provider: "google",
-    });
-  };
+
+    const handleWithGoogle = async () => {
+      await authClient.signIn.social({
+        provider: "google",
+      });
+    };
   return (
     <div className="max-w-7xl mx-auto py-10">
       <div>
-        <h2 className=" text-2xl font-bold">Create Account</h2>
+        <h2 className=" text-2xl font-bold">Login Your Account</h2>
       </div>
       <Card className="border p-5 border-slate-300">
         <Form onSubmit={onSubmit} className="flex w-96 flex-col gap-4">
-          <TextField
-            isRequired
-            name="name"
-            type="text"
-            className="flex flex-col gap-1"
-          >
-            <Label className="text-sm font-medium text-gray-700">Name</Label>
-            <Input
-              placeholder="Enter Your Name"
-              className="border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition"
-            />
-            <FieldError className="text-xs text-red-500" />
-          </TextField>
-          <TextField
-            isRequired
-            name="image"
-            type="url"
-            className="flex flex-col gap-1"
-          >
-            <Label className="text-sm font-medium text-gray-700">Image</Label>
-            <Input
-              placeholder="Image Url"
-              className="border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition"
-            />
-            <FieldError className="text-xs text-red-500" />
-          </TextField>
           <TextField
             isRequired
             name="email"
@@ -113,17 +86,21 @@ const SignUpPage = () => {
               className={"rounded-none w-full bg-cyan-500 text-white p-2"}
               type="submit"
             >
-              Create Account
+              Login
             </Button>
           </div>
         </Form>
+
         <div className="flex items-center gap-3 py-2">
           <hr className="flex-1 border-gray-400" />
           <span className="text-sm font-medium">Or SignUp With</span>
           <hr className="flex-1 border-gray-400" />
         </div>
         <div>
-          <Button onClick={handleWithGoogle} className="w-full rounded-none cursor-pointer flex items-center justify-center gap-2">
+          <Button
+            onClick={handleWithGoogle}
+            className="w-full rounded-none cursor-pointer flex items-center justify-center gap-2"
+          >
             <FcGoogle className="text-xl" />
             <span>Sign in With Google</span>
           </Button>
@@ -133,4 +110,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default LoginPage;
