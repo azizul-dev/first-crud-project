@@ -13,7 +13,7 @@ const Delete = ({ destination }) => {
   const handleDelete = async () => {
     try {
       const res = await fetch(
-        `http://localhost:8000/destination/${_id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/destination/${_id}`,
         {
           method: "DELETE",
           headers: {

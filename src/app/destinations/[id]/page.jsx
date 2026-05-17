@@ -23,7 +23,7 @@ const DestinationDetailPage = async ({ params }) => {
   const tokenData = await auth.api.getToken({ headers: await headers() });
   const token = tokenData?.token;
 
-  const res = await fetch(`http://localhost:8000/destination/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/destination/${id}`, {
     headers: {
       authorization: `Bearer ${token}`,
     },
